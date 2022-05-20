@@ -9,6 +9,11 @@ API 기능 : API요청완료를, 손서보장을 시킵니다.
 ## 컨셉
 
 ![](./doc/concept.png)
+TYPE A: 직접 WebHook 받을시
+
+![](./doc/concept2.png)
+TYPE B: WebHook Target수정불가시 - ByPass+CallBack 방식으로 작동할시
+
 
 ##
     완료시간이 제각각이여도, 요청 순서대로 완료보장~
