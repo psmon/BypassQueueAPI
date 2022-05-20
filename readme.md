@@ -8,6 +8,8 @@ API 기능 : API요청완료를, 손서보장을 시킵니다.
 
 ## 컨셉
 
+![](./doc/concept0.png)
+
 ![](./doc/concept.png)
 TYPE A: 직접 WebHook 받을시
 
