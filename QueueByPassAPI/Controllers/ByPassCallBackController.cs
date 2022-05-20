@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
@@ -35,10 +36,12 @@ namespace QueueByPassAPI.Controllers
             
             _logger.LogInformation("PostTodoItem");
 
+            //Self Test시 test사용
             string tryCallBackUrl = callBackUrl=="test" ? "http://localhost:9000/api/ByPassCallBack/test" : callBackUrl;
 
             _bridge.Tell(id, new Model.PostSpec()
             { 
+                reqId = _testCount.callCount,
                 host = tryCallBackUrl, path = null, data = todoItem 
             });
             
@@ -49,14 +52,15 @@ namespace QueueByPassAPI.Controllers
 
 
         [HttpPost("test")]
-        public async Task<ActionResult<string>> TestCallBack(object todoItem)
-        {                        
-            await Task.Delay(1500);
+        public async Task<ActionResult<string>> TestCallBack(object todoItem, [FromQuery(Name = "reqid")] int reqid)
+        {                          
+            var rand = new Random();
+            int randomDelay = rand.Next(500, 1500);
 
+            await Task.Delay(randomDelay);
             ActionResult<string> actionResult = new ActionResult<string>("ok+");
-            string jsonString = JsonConvert.SerializeObject(todoItem);
-                        
-            _logger.LogInformation($"Done TestCallBack {++_testCount.callBackCount}");
+
+            _logger.LogInformation($"[REQNO-{reqid}] Done TestCallBack {++_testCount.callBackCount} , Completed Time {randomDelay}");
 
             return actionResult;
         }

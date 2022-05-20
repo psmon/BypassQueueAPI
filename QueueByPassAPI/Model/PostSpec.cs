@@ -13,6 +13,8 @@ namespace QueueByPassAPI.Model
 
         public object data {get;set; }
 
+        public int reqId {get;set; }
+
     }
 
     public class TestCount

@@ -18,7 +18,7 @@ namespace QueueByPassAPI.Actor
         {
             ReceiveAsync<PostSpec>(async message => {
                 log.Info("Received PostSpec message: {0} {1}", message.host, message.path);
-                var data = await apiClient.PostCallBack(message.host, message.path, message.data);
+                var data = await apiClient.PostCallBack(message.reqId, message.host, message.path, message.data);
             });
         }
         

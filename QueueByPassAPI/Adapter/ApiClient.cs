@@ -9,7 +9,7 @@ namespace QueueByPassAPI.Adapter
 {
     public class ApiClient
     {
-        public async Task<string> PostCallBack(string url, string path, object data)
+        public async Task<string> PostCallBack(int reqId, string url, string path, object data)
         {
             string request = url;
 
@@ -17,6 +17,7 @@ namespace QueueByPassAPI.Adapter
 
             var getData = await request
                 .SetQueryParam("bypass",1)
+                .SetQueryParam("reqid",reqId)
                 .PostJsonAsync(data)
                 .ReceiveString();
 
