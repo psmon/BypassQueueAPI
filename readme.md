@@ -138,4 +138,4 @@ TYPE B: WebHook Target수정불가시 - ByPass+CallBack 방식으로 작동할�
 추가 참고 링크 : 
 - https://wiki.webnori.com/display/webfr/Cluster+with+Actor -액터를 클러스터화 할때
 - https://petabridge.com/blog/akkadotnet-async-actors-using-pipeto/ -액터를 비동기적으로 중단없이 실행할때 (순차완료 보장은 안됨)
-- https://getakka.net/articles/actors/mailboxes.html#unboundedprioritymailbox - 이벤트가 순차가아닌 아주 짧은시간(100ms이내) 동시에 발생한다고 하면 추가적으로 메일박스 우선순위 액터를 적용할수 있습니다.  주로 아주짧은시간 동시에 발생한 이벤트가, 네트워크의 다른 라우티 경로에의해 발생할수 있으며 우선순위는 발생id및 메시지 type등이 될수 있습니다.
+- https://getakka.net/articles/actors/mailboxes.html#unboundedprioritymailbox - 이벤트가 순차가아닌 아주 짧은시간(100ms이내) 동시에 발생한다고 하면 추가적으로 메일박스 우선순위 액터를 적용할수 있습니다.  주로 아주짧은시간 동시에 발생한 이벤트가, 네트워크의 다른 라우티 경로에의해 이벤트 수신순서가 변경될수 있으며 우선순위는 발생id및 메시지 type등이 될수 있습니다.
