@@ -82,6 +82,43 @@ TYPE B: WebHook Target수정불가시 - ByPass+CallBack 방식으로 작동할�
     info: QueueByPassAPI.Controllers.ByPassCallBackController[0]
           [REQNO-6] Done TestCallBack 7 , Completed Time 1332
 
+## Code 컨셉
+
+    //액터구현
+    public class QueueActor: ReceiveActor
+    {
+        private readonly ILoggingAdapter log = Context.GetLogger();
+
+        private ApiClient apiClient = new ApiClient();
+
+        public QueueActor()
+        {
+            ReceiveAsync<PostSpec>(async message => {
+                log.Info("Received PostSpec message: {0} {1}", message.host, message.path);
+                var data = await apiClient.PostCallBack(message.reqId, message.host, message.path, message.data);
+            });
+        }
+        
+        public static Props Props()
+        {
+            return Akka.Actor.Props.Create(() => new QueueActor());
+        }
+
+    }
+
+    //액터 호출
+    _bridge.Tell(id, new Model.PostSpec()
+    { 
+        reqId = _testCount.callCount,
+        host = tryCallBackUrl, path = null, data = todoItem 
+    });
+
+액터는 기본적으로 순차처리 큐처럼 작동됩니다. 메시지를 보내면 액터메시지 큐에 적재되고
+하나씩 꺼내어 처리를 합니다. 순서보장에의해 순차완료가 됩니다.
+별도로 큐에적재하고 하나씩 꺼내는 과정을 구현할필요없이 처리부만 구현하면 그렇게 작동이됩니다.
+
+순차성이 필요없다라고 하면 pipe로 액터처리를 멈추지않고 동시비동기 처리가 가능합니다.
+
 ## API DOC
 ![](./doc/api_help.png)
 
