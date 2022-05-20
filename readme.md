@@ -133,4 +133,6 @@ TYPE B: WebHook Target수정불가시 - ByPass+CallBack 방식으로 작동할�
 순차를 보장해야하는 그룹이 많아서 스케일아웃이 필요하다고 하면 액터를 클러스터 구성하여 분산처리 가능합니다.
 
 
-- 링크 : https://wiki.webnori.com/display/webfr/Cluster+with+Actor
+추가 참고 링크 : 
+- https://wiki.webnori.com/display/webfr/Cluster+with+Actor -액터를 클러스터화 할때
+- https://petabridge.com/blog/akkadotnet-async-actors-using-pipeto/ -액터를 비동기적으로 중단없이 실행할때 (순차완료 보장은 안됨)
