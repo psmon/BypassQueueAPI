@@ -38,6 +38,22 @@ API 기능 : 이벤트 발생순서에의핸 API완료 순서보장을 보증합
 - DB Lock 이해 : 멀티스레드 트랙젝션간 동일데이터 변경을 보호하기 위한 용도이며, 복잡한 쿼리에의해 동시적으로 Row를 변경하는 경우 DeadLock이 될가능성이 높으며 DB엔진및 격리수준에 따라 작동방식이 다르기때문에 성능을 제어하기가 어렵습니다.
 
 
+#### 데드락 쿼리 예제
+
+    MYSQL에서 다음 쿼리를 동시에 수행하면 데드락 발생~
+    
+    START TRANSACTION;
+    SELECT * FROM testdb.tbl_locktest for update;
+    do sleep(10);
+    UPDATE `testdb`.`tbl_locktest2` SET `text` = 'test2' WHERE (`id` = '1');
+    COMMIT;
+
+    START TRANSACTION;
+    SELECT * FROM testdb.tbl_locktest2 for update;
+    UPDATE `testdb`.`tbl_locktest` SET `text` = 'test2' WHERE (`id` = '1');
+    COMMIT;
+
+
 ### 순차적 완료를 보장
 
 해결컨셉:
